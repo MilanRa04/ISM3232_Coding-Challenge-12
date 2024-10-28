@@ -95,3 +95,16 @@ function drawAllShapes() {
         ctx.stroke(); // Apply stroke to the shape
     });
 }
+
+
+// Task 4: Add Color Selection and Canvas Clearing
+// Clear the canvas when the Clear button is clicked
+clearButton.addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear entire canvas
+    shapes = []; // Reset shapes array
+});
+
+// Update stroke color dynamically based on color picker input
+colorPicker.addEventListener('input', (event) => {
+    ctx.strokeStyle = event.target.value; // Set drawing color to chosen color
+});
