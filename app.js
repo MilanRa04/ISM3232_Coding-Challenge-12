@@ -9,26 +9,29 @@ const clearButton = document.getElementById('clearCanvas');
 
 //Variables to trach drawing
 let drawing = false;
-let startX, startY;
+let startX = 0;
+let startY = 0;
+let selectedTool = 'line';
 
-//Add event listeners for mouse events
-canvas.addEventListener('mousedown', startDrawing);
-canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', stopDrawing);
-canvas.addEventListener('mouseout', stopDrawing)
+//Event Listeners for tool selection
+document.querySelectorAll ('input [name="tool"]').forEach((input) => {
+    input.addEventListener('change', (event) => {
+        selectedTool = event.target.value;
+    });
+});
 
-function startDrawing(event) {
+//Start drawing when the mouse button is pressed down
+canvas.addEventListener('mousedown', (event) => {
     drawing = true;
     startX = event.offsetX;
     startY = event.offsetY;
-}
+});
 
-function draw(event) {
-    if (!drawing) return;
-    ctx.clearRect(0, 0, canvas.clientWidth, canvas.height);
-    ctx.beginPath();
-}
-
-function stopDrawing() {
+//End drawing when the mouse button is relaeased or leaves the canvas
+canvas.addEventListener('mouseup', () => {
     drawing = false;
-}
+    ctx.closePath();
+});
+canvas.addEventListener('mouseout', () => {
+    drawing = false;
+});
